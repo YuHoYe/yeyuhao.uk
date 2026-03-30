@@ -1,0 +1,23 @@
+CLAUDE.md
+  ce801669e04e3df3 18-19,33,36-37,43-46,50-51,57,61,94-106,124-125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "06874cc2756eb8422b8ad22729f1d820789630f7",
+  "prompts": {
+    "ce801669e04e3df3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0829516d-c1b7-474b-b8b1-299fd1c16ebe",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Yuho <yuhoye@gmail.com>",
+      "messages": [],
+      "total_additions": 28,
+      "total_deletions": 6,
+      "accepted_lines": 28,
+      "overriden_lines": 0
+    }
+  }
+}
