@@ -2,5 +2,5 @@ name: "OpenClaw"
 icon: "🤖"
 description: "Telegram AI 助手，支持多模型自动切换"
 tags: ["TypeScript", "AI"]
-url: "https://github.com/yuho/openclaw"
+url: "https://github.com/YuHoYe/openclaw"
 year: 2025
