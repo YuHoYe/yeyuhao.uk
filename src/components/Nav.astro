@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from "./ThemeToggle.astro";
+
 const navLinks = [
   { href: "/blog", label: "博客" },
   { href: "/projects", label: "项目" },
@@ -12,7 +14,7 @@ const currentPath = Astro.url.pathname;
   <a href="/" class="text-base font-bold text-[--color-text] no-underline">
     Yuho
   </a>
-  <div class="flex gap-5">
+  <div class="flex items-center gap-5">
     {navLinks.map(({ href, label }) => (
       <a
         href={href}
@@ -26,5 +28,6 @@ const currentPath = Astro.url.pathname;
         {label}
       </a>
     ))}
+    <ThemeToggle />
   </div>
 </nav>

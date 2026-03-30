@@ -19,6 +19,14 @@ const { title, description = "Yuho's personal website" } = Astro.props;
     <meta name="description" content={description} />
     <title>{title} — Yuho</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // 页面渲染前应用主题，避免闪烁
+      (function() {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark') document.documentElement.classList.add('dark');
+        else if (t === 'light') document.documentElement.classList.add('light');
+      })();
+    </script>
   </head>
   <body class="bg-[--color-bg] text-[--color-text] font-sans antialiased">
     <div class="mx-auto max-w-5xl px-6">

@@ -15,8 +15,20 @@
   --color-tag-text: #666;
 }
 
+/* 手动切换深色模式 */
+html.dark {
+  --color-text: #e5e5e5;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #737373;
+  --color-border: #2a2a2a;
+  --color-bg: #0a0a0a;
+  --color-tag-bg: #1f1f1f;
+  --color-tag-text: #a3a3a3;
+}
+
+/* 无手动偏好时跟随系统 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  html:not(.light) {
     --color-text: #e5e5e5;
     --color-text-secondary: #a3a3a3;
     --color-text-muted: #737373;
