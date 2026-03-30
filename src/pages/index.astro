@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 const allPosts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -10,6 +10,10 @@ const allPosts = (await getCollection("blog", ({ data }) => !data.draft))
 
 const allProjects = (await getCollection("projects"))
   .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+
+const recentMemos = (await getCollection("memos", ({ data }) => data.confirmed === true))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 ---
 
@@ -34,6 +38,28 @@ const allProjects = (await getCollection("projects"))
     ))}
     <a href="/blog" class="text-xs text-[--color-text-secondary] hover:text-[--color-text] no-underline mt-2 inline-block">
       → 全部文章
+    </a>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-xs text-[--color-text-muted] tracking-widest mb-4">
+      最近碎片
+    </h2>
+    {recentMemos.map((memo) => {
+      const d = memo.data.date;
+      const dateStr = d.toLocaleDateString("zh-CN", { month: "2-digit", day: "2-digit" });
+      // Use first line of body as preview
+      const preview = (memo.body || "").replace(/\[\[([^\]]*?\|)?([^\]]+)\]\]/g, "$2").split("\n").find((l) => l.trim()) || "";
+      const truncated = preview.length > 60 ? preview.slice(0, 60) + "…" : preview;
+      return (
+        <a href="/memos" class="flex items-baseline gap-3 py-1.5 no-underline group">
+          <time class="text-xs text-[--color-text-muted] shrink-0">{dateStr}</time>
+          <span class="text-sm text-[--color-text-secondary] group-hover:text-[--color-text] transition-colors truncate">{truncated}</span>
+        </a>
+      );
+    })}
+    <a href="/memos" class="text-xs text-[--color-text-secondary] hover:text-[--color-text] no-underline mt-2 inline-block">
+      → 全部碎片
     </a>
   </section>
 
