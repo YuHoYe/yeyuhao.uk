@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function readingTime(body: string): string {
+  const words = body.split(/\s+/).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min`;
+}
+---
+
+<BaseLayout title="Blog" description="All posts by Yu Ho">
+  <h1 class="text-lg font-bold mb-1">Blog</h1>
+  <p class="text-sm text-[--color-text-muted] mb-8">All posts, sorted by date.</p>
+
+  <div class="space-y-6">
+    {allPosts.map((post) => (
+      <a href={`/blog/${post.id}`} class="block pb-6 border-b border-[--color-border] no-underline group">
+        <h2 class="text-sm font-semibold text-[--color-text] group-hover:text-[--color-text-secondary] transition-colors mb-1.5">
+          {post.data.title}
+        </h2>
+        <p class="text-xs text-[--color-text-secondary] leading-relaxed mb-2">
+          {post.data.description}
+        </p>
+        <div class="flex items-center gap-2">
+          {post.data.tags.map((tag) => (
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-[--color-tag-bg] text-[--color-tag-text]">
+              {tag}
+            </span>
+          ))}
+          <span class="text-[11px] text-[--color-text-muted] ml-auto">
+            {post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })}
+            {" · "}
+            {readingTime(post.body || "")}
+          </span>
+        </div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
