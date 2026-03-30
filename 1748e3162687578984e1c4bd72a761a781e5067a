@@ -1,0 +1,23 @@
+src/pages/blog/index.astro
+  1aef4d1dc024bf52 1-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "1748e3162687578984e1c4bd72a761a781e5067a",
+  "prompts": {
+    "1aef4d1dc024bf52": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "318df231-8f46-499a-9dce-fcc077c90c71",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YuHoYe <yeyuhao02@corp.netease.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 220,
+      "overriden_lines": 0
+    }
+  }
+}
