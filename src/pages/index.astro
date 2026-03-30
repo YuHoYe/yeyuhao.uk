@@ -17,13 +17,13 @@ const allProjects = (await getCollection("projects"))
   <section class="mb-12">
     <h1 class="text-xl font-bold mb-2">Hey, I'm Yuho</h1>
     <p class="text-sm text-[--color-text-secondary] leading-relaxed">
-      Software Engineer. Building tools, tinkering with homelab, writing things down.
+      软件工程师。写代码，折腾 Homelab，偶尔记录生活。
     </p>
   </section>
 
   <section class="mb-12">
-    <h2 class="text-xs text-[--color-text-muted] tracking-widest uppercase mb-4">
-      Recent Posts
+    <h2 class="text-xs text-[--color-text-muted] tracking-widest mb-4">
+      最新文章
     </h2>
     {allPosts.map((post) => (
       <PostCard
@@ -33,13 +33,13 @@ const allProjects = (await getCollection("projects"))
       />
     ))}
     <a href="/blog" class="text-xs text-[--color-text-secondary] hover:text-[--color-text] no-underline mt-2 inline-block">
-      → All posts
+      → 全部文章
     </a>
   </section>
 
   <section>
-    <h2 class="text-xs text-[--color-text-muted] tracking-widest uppercase mb-4">
-      Projects
+    <h2 class="text-xs text-[--color-text-muted] tracking-widest mb-4">
+      项目
     </h2>
     <div class="grid grid-cols-2 gap-3">
       {allProjects.map((project) => (
@@ -47,7 +47,7 @@ const allProjects = (await getCollection("projects"))
       ))}
     </div>
     <a href="/projects" class="text-xs text-[--color-text-secondary] hover:text-[--color-text] no-underline mt-4 inline-block">
-      → All projects
+      → 全部项目
     </a>
   </section>
 </BaseLayout>
