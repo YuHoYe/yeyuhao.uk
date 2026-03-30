@@ -1,0 +1,48 @@
+---
+interface Props {
+  tagCounts: [string, number][];
+}
+
+const { tagCounts } = Astro.props;
+const visibleCount = 20;
+const hasMore = tagCounts.length > visibleCount;
+---
+
+<div id="tag-cloud" class="tag-cloud">
+  <a class="tag-cloud-item tag-btn active" data-tag="all">
+    全部
+  </a>
+  {tagCounts.map(([tag, count], i) => (
+    <a
+      class:list={[
+        "tag-cloud-item tag-btn",
+        i >= visibleCount && "hidden-tag hidden",
+      ]}
+      data-tag={tag}
+    >
+      #{tag}
+      <span class="tag-count">{count}</span>
+    </a>
+  ))}
+  {hasMore && (
+    <a id="toggle-tags" class="tag-cloud-item tag-toggle">
+      展开全部
+    </a>
+  )}
+</div>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("toggle-tags");
+    if (!btn) return;
+    var expanded = false;
+    var total = document.querySelectorAll(".hidden-tag").length;
+    btn.addEventListener("click", function () {
+      expanded = !expanded;
+      document.querySelectorAll(".hidden-tag").forEach(function (el) {
+        el.classList.toggle("hidden", !expanded);
+      });
+      btn.textContent = expanded ? "收起" : "展开全部";
+    });
+  })();
+</script>
