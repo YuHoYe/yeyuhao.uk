@@ -13,6 +13,7 @@
   --color-bg: #fff;
   --color-tag-bg: #f0f0f0;
   --color-tag-text: #666;
+  color-scheme: light;
 }
 
 /* 手动切换深色模式 */
@@ -24,6 +25,7 @@ html.dark {
   --color-bg: #0a0a0a;
   --color-tag-bg: #1f1f1f;
   --color-tag-text: #a3a3a3;
+  color-scheme: dark;
 }
 
 /* 无手动偏好时跟随系统 */
@@ -36,7 +38,18 @@ html.dark {
     --color-bg: #0a0a0a;
     --color-tag-bg: #1f1f1f;
     --color-tag-text: #a3a3a3;
+    color-scheme: dark;
   }
+}
+
+/* 全局基础样式 — 背景/文字/字体统一由 CSS 变量驱动 */
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 /* Prose styling for blog post content */
