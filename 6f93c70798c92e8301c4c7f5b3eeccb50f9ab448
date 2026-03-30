@@ -1,0 +1,31 @@
+src/content.config.ts
+  1aef4d1dc024bf52 1-29
+src/content/blog/hello-world.md
+  1aef4d1dc024bf52 1-24
+src/content/projects/homelab.yaml
+  1aef4d1dc024bf52 1-6
+src/content/projects/openclaw.yaml
+  1aef4d1dc024bf52 1-6
+src/content/projects/dailysummary.yaml
+  1aef4d1dc024bf52 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "6f93c70798c92e8301c4c7f5b3eeccb50f9ab448",
+  "prompts": {
+    "1aef4d1dc024bf52": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "318df231-8f46-499a-9dce-fcc077c90c71",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YuHoYe <yeyuhao02@corp.netease.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 71,
+      "overriden_lines": 0
+    }
+  }
+}
