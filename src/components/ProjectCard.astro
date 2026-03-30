@@ -1,0 +1,29 @@
+---
+interface Props {
+  name: string;
+  icon: string;
+  description: string;
+  tags: string[];
+  url: string;
+}
+
+const { name, icon, description, tags, url } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block border border-[--color-border] rounded-lg p-4 no-underline hover:border-[--color-text-muted] transition-colors"
+>
+  <div class="text-xl mb-2">{icon}</div>
+  <h3 class="text-sm font-semibold text-[--color-text] mb-1">{name}</h3>
+  <p class="text-xs text-[--color-text-secondary] mb-3 leading-relaxed">{description}</p>
+  <div class="flex flex-wrap gap-1.5">
+    {tags.map((tag) => (
+      <span class="text-[10px] px-1.5 py-0.5 rounded bg-[--color-tag-bg] text-[--color-tag-text]">
+        {tag}
+      </span>
+    ))}
+  </div>
+</a>

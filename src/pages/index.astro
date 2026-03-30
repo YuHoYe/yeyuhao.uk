@@ -1,7 +1,53 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
+
+const allProjects = (await getCollection("projects"))
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
 ---
 
 <BaseLayout title="Home">
-  <p>Site is working.</p>
+  <section class="mb-12">
+    <h1 class="text-xl font-bold mb-2">Hey, I'm Yu Ho</h1>
+    <p class="text-sm text-[--color-text-secondary] leading-relaxed">
+      Software Engineer. Building tools, tinkering with homelab, writing things down.
+    </p>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-xs text-[--color-text-muted] tracking-widest uppercase mb-4">
+      Recent Posts
+    </h2>
+    {allPosts.map((post) => (
+      <PostCard
+        title={post.data.title}
+        href={`/blog/${post.id}`}
+        date={post.data.date}
+      />
+    ))}
+    <a href="/blog" class="text-xs text-[--color-text-secondary] hover:text-[--color-text] no-underline mt-2 inline-block">
+      → All posts
+    </a>
+  </section>
+
+  <section>
+    <h2 class="text-xs text-[--color-text-muted] tracking-widest uppercase mb-4">
+      Projects
+    </h2>
+    <div class="grid grid-cols-2 gap-3">
+      {allProjects.map((project) => (
+        <ProjectCard {...project.data} />
+      ))}
+    </div>
+    <a href="/projects" class="text-xs text-[--color-text-secondary] hover:text-[--color-text] no-underline mt-4 inline-block">
+      → All projects
+    </a>
+  </section>
 </BaseLayout>
