@@ -8,22 +8,51 @@ const giscusConfig = {
 ---
 
 <section class="border-t border-[--color-border] pt-8">
-  <script
-    is:inline
-    src="https://giscus.app/client.js"
-    data-repo={giscusConfig.repo}
-    data-repo-id={giscusConfig.repoId}
-    data-category={giscusConfig.category}
-    data-category-id={giscusConfig.categoryId}
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="preferred_color_scheme"
-    data-lang="en"
-    data-loading="lazy"
-    crossorigin="anonymous"
-    async
-  />
+  <div id="giscus-container"></div>
+  <script is:inline define:vars={{ giscusConfig }}>
+    function getGiscusTheme() {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') return 'dark';
+      if (saved === 'light') return 'light';
+      // auto: 跟随系统
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 初始化 Giscus
+    function loadGiscus() {
+      var container = document.getElementById('giscus-container');
+      if (!container || container.querySelector('.giscus')) return;
+
+      var script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', giscusConfig.repo);
+      script.setAttribute('data-repo-id', giscusConfig.repoId);
+      script.setAttribute('data-category', giscusConfig.category);
+      script.setAttribute('data-category-id', giscusConfig.categoryId);
+      script.setAttribute('data-mapping', 'pathname');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'top');
+      script.setAttribute('data-theme', getGiscusTheme());
+      script.setAttribute('data-lang', 'zh-CN');
+      script.setAttribute('data-loading', 'lazy');
+      script.crossOrigin = 'anonymous';
+      script.async = true;
+      container.appendChild(script);
+    }
+
+    // 主题切换时通知 Giscus iframe
+    window.updateGiscusTheme = function() {
+      var iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: getGiscusTheme() } } },
+          'https://giscus.app'
+        );
+      }
+    };
+
+    loadGiscus();
+  </script>
 </section>

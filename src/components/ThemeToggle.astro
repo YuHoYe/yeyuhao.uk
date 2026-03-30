@@ -51,6 +51,8 @@
         }
         applyTheme(next);
         btn.textContent = getIcon(next);
+        // 同步 Giscus 评论主题
+        if (typeof window.updateGiscusTheme === 'function') window.updateGiscusTheme();
       });
     }
 
@@ -59,6 +61,7 @@
       const current = localStorage.getItem('theme');
       if (!current || current === 'auto') {
         applyTheme('auto');
+        if (typeof window.updateGiscusTheme === 'function') window.updateGiscusTheme();
       }
     });
 
