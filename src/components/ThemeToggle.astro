@@ -1,6 +1,5 @@
 ---
-// 深色模式切换按钮
-// 三态循环：自动（跟随系统） → 浅色 → 深色 → 自动
+// 深色模式切换按钮：浅色 ↔ 深色
 ---
 
 <button
@@ -12,59 +11,38 @@
 </button>
 
 <script is:inline>
-  // 在 DOM 解析前立即执行，避免闪烁
   (function() {
-    const saved = localStorage.getItem('theme');
-    const btn = document.getElementById('theme-toggle');
-    const html = document.documentElement;
+    var btn = document.getElementById('theme-toggle');
+    var html = document.documentElement;
 
-    function applyTheme(theme) {
+    function isDark() {
+      var saved = localStorage.getItem('theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    function applyTheme(dark) {
       html.classList.remove('dark', 'light');
-      if (theme === 'dark') {
-        html.classList.add('dark');
-      } else if (theme === 'light') {
-        html.classList.add('light');
-      }
-      // theme === 'auto' 时不加 class，交给媒体查询
+      html.classList.add(dark ? 'dark' : 'light');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
 
-    function getIcon(theme) {
-      if (theme === 'dark') return '\u{1F319}';  // 🌙
-      if (theme === 'light') return '\u{2600}\u{FE0F}';  // ☀️
-      return '\u{1F4BB}';  // 💻 (跟随系统)
+    function updateIcon(dark) {
+      if (btn) btn.textContent = dark ? '\u{1F319}' : '\u{2600}\u{FE0F}';
     }
 
-    function init() {
-      const theme = saved || 'auto';
-      applyTheme(theme);
-      if (btn) btn.textContent = getIcon(theme);
-    }
+    // 初始化
+    var dark = isDark();
+    applyTheme(dark);
+    updateIcon(dark);
 
     if (btn) {
       btn.addEventListener('click', function() {
-        const current = localStorage.getItem('theme') || 'auto';
-        const next = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
-        if (next === 'auto') {
-          localStorage.removeItem('theme');
-        } else {
-          localStorage.setItem('theme', next);
-        }
-        applyTheme(next);
-        btn.textContent = getIcon(next);
-        // 同步 Giscus 评论主题
+        dark = !dark;
+        applyTheme(dark);
+        updateIcon(dark);
         if (typeof window.updateGiscusTheme === 'function') window.updateGiscusTheme();
       });
     }
-
-    // 监听系统偏好变化（auto 模式下实时响应）
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-      const current = localStorage.getItem('theme');
-      if (!current || current === 'auto') {
-        applyTheme('auto');
-        if (typeof window.updateGiscusTheme === 'function') window.updateGiscusTheme();
-      }
-    });
-
-    init();
   })();
 </script>
