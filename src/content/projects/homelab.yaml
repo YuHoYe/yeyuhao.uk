@@ -2,5 +2,5 @@ name: "Homelab"
 icon: "🏠"
 description: "DS923+ 全套 Docker 服务配置与自动化"
 tags: ["Docker", "NAS"]
-url: "https://github.com/yuho/nas"
+url: "https://github.com/YuHoYe/nas"
 year: 2024
