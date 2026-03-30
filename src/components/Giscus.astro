@@ -1,0 +1,30 @@
+---
+// Replace these values with actual Giscus configuration after GitHub repo is created
+const giscusConfig = {
+  repo: "yuho/yeyuhao.uk",
+  repoId: "REPLACE_WITH_REPO_ID",
+  category: "Announcements",
+  categoryId: "REPLACE_WITH_CATEGORY_ID",
+};
+---
+
+<section class="border-t border-[--color-border] pt-8">
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo={giscusConfig.repo}
+    data-repo-id={giscusConfig.repoId}
+    data-category={giscusConfig.category}
+    data-category-id={giscusConfig.categoryId}
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  />
+</section>
