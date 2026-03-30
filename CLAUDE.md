@@ -15,8 +15,8 @@
 ## 开发命令
 
 ```bash
-npm run dev      # 启动开发服务器 http://localhost:4321
-npm run build    # 生产构建到 dist/
+npm run dev      # 同步 memos + 启动开发服务器 http://localhost:4321
+npm run build    # 同步 memos + 生产构建到 dist/
 npm run preview  # 预览生产构建
 ```
 
@@ -30,28 +30,35 @@ git push   # 推送到 GitHub 后 Cloudflare Pages 自动构建部署
 
 ```
 src/
-├── content.config.ts       # Content Collections schema（blog + projects）
+├── content.config.ts       # Content Collections schema（blog + projects + memos）
 ├── content/
 │   ├── blog/               # 文章 Markdown（frontmatter: title, description, date, tags, lang, draft）
-│   └── projects/           # 项目数据 YAML（name, icon, description, tags, url, year）
+│   ├── projects/           # 项目数据 YAML（name, icon, description, tags, url, year）
+│   └── memos/              # 碎片 Markdown（从 Obsidian vault 同步，frontmatter: date, origin, confirmed, tags）
 ├── components/
 │   ├── Nav.astro           # 导航栏
 │   ├── Footer.astro        # 页脚（版权 + 社交链接）
 │   ├── PostCard.astro      # 首页文章卡片
 │   ├── ProjectCard.astro   # 项目卡片
-│   └── Giscus.astro        # 评论组件
+│   ├── Giscus.astro        # 评论组件
+│   ├── MemoCard.astro      # 碎片卡片（flomo 风格）
+│   ├── MemoHeatmap.astro   # 热力图（SVG）
+│   └── MemoTagCloud.astro  # 标签云（可点击过滤）
 ├── layouts/
 │   ├── BaseLayout.astro    # 基础布局（head + nav + main + footer）
 │   └── PostLayout.astro    # 文章详情布局（元数据 + prose + 评论 slot）
+├── plugins/
+│   └── remark-wikilinks.mjs # Remark 插件：清除 Obsidian [[wikilinks]]
 ├── pages/
 │   ├── index.astro         # 首页（介绍 + 最新文章 + 项目摘要）
 │   ├── blog/
 │   │   ├── index.astro     # 博客列表
 │   │   └── [...slug].astro # 文章详情（动态路由，用 post.id）
+│   ├── memos.astro         # 碎片页（flomo 风格：侧边栏 + 卡片流）
 │   ├── projects.astro      # 项目页（卡片网格）
 │   └── about.astro         # 关于页
 └── styles/
-    └── global.css          # Tailwind + 自定义主题变量 + prose 排版
+    └── global.css          # Tailwind + 自定义主题变量 + prose 排版 + memo 样式
 ```
 
 ## 写文章
@@ -84,6 +91,19 @@ url: "https://github.com/..."
 year: 2026
 ```
 
+## 碎片（Memos）
+
+数据源是 Obsidian vault（`~/Developer/YuhoVault/Memos/notes/`），通过同步脚本复制 `confirmed: true` 的 memo 到 `src/content/memos/`。
+
+```bash
+./scripts/sync-memos.sh   # 手动同步（npm run dev/build 时自动执行）
+```
+
+- `npm run dev` 和 `npm run build` 会自动先执行 sync 脚本
+- CI 环境（Cloudflare Pages）没有 vault，sync 自动跳过，用仓库中已提交的 memo 文件构建
+- 页面风格参照 flomo：左侧边栏（统计 + 热力图 + 标签云）+ 右侧卡片流
+- Obsidian `[[wikilinks]]` 由 remark 插件在构建时自动清除
+
 ## 上传图片到 R2
 
 ```bash
@@ -101,6 +121,8 @@ year: 2026
 - **Content Collections 用 glob loader**: Astro 5.x 的 `astro/loaders` API
 - **CSS 变量做主题**: `--color-text` 等变量，深色模式通过 `prefers-color-scheme` 媒体查询切换
 - **prose 样式手写**: 不用 `@tailwindcss/typography`，保持最小依赖
+- **Memos 数据同步**: Obsidian vault 为唯一数据源，sync 脚本复制到仓库，CI 用已提交文件构建
+- **Remark 插件处理 wikilinks**: 全局生效，清除 Obsidian `[[...]]` 语法
 
 ## 语言
 
