@@ -1,0 +1,32 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Yu Ho's personal website" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} — Yu Ho</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="bg-[--color-bg] text-[--color-text] font-sans antialiased">
+    <div class="mx-auto max-w-2xl px-6">
+      <Nav />
+      <main class="py-8">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

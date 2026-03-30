@@ -1,0 +1,24 @@
+---
+const socialLinks = [
+  { href: "https://github.com/yuho", label: "GitHub" },
+  { href: "https://twitter.com/yuho", label: "Twitter" },
+];
+---
+
+<footer class="border-t border-[--color-border] py-8 mt-16">
+  <div class="flex items-center justify-between text-xs text-[--color-text-muted]">
+    <span>&copy; {new Date().getFullYear()} Yu Ho</span>
+    <div class="flex gap-4">
+      {socialLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-[--color-text-muted] no-underline hover:text-[--color-text-secondary] transition-colors"
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </div>
+</footer>
