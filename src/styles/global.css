@@ -3,6 +3,9 @@
 @theme {
   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
   --font-mono: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace;
+}
+
+:root {
   --color-text: #111;
   --color-text-secondary: #666;
   --color-text-muted: #999;
@@ -13,7 +16,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  @theme {
+  :root {
     --color-text: #e5e5e5;
     --color-text-secondary: #a3a3a3;
     --color-text-muted: #737373;
@@ -35,6 +38,7 @@
   font-weight: 700;
   margin-top: 2em;
   margin-bottom: 0.5em;
+  color: var(--color-text);
 }
 
 .prose h1 { font-size: 1.5rem; }
