@@ -1,0 +1,23 @@
+src/components/Giscus.astro
+  1aef4d1dc024bf52 3-4,6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "57fa897397400c0af2c014213650bdee5678769b",
+  "prompts": {
+    "1aef4d1dc024bf52": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "318df231-8f46-499a-9dce-fcc077c90c71",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YuHoYe <yeyuhao02@corp.netease.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 4,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}
