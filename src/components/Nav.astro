@@ -1,0 +1,30 @@
+---
+const navLinks = [
+  { href: "/blog", label: "Blog" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="flex items-center justify-between py-6">
+  <a href="/" class="text-base font-bold text-[--color-text] no-underline">
+    Yu Ho
+  </a>
+  <div class="flex gap-5">
+    {navLinks.map(({ href, label }) => (
+      <a
+        href={href}
+        class:list={[
+          "text-sm no-underline transition-colors",
+          currentPath.startsWith(href)
+            ? "text-[--color-text] font-medium"
+            : "text-[--color-text-secondary] hover:text-[--color-text]",
+        ]}
+      >
+        {label}
+      </a>
+    ))}
+  </div>
+</nav>
