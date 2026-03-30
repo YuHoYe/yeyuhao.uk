@@ -28,7 +28,8 @@ fi
 
 npx wrangler r2 object put "${BUCKET}/${REMOTE_PATH}" \
   --file "$FILE" \
-  --content-type "$(file --mime-type -b "$FILE")"
+  --content-type "$(file --mime-type -b "$FILE")" \
+  --remote
 
 echo ""
 echo "Uploaded: ${BASE_URL}/${REMOTE_PATH}"
