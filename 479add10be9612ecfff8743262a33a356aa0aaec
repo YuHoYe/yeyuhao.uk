@@ -1,0 +1,23 @@
+src/pages/index.astro
+  ce801669e04e3df3 5,14-16,44-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "479add10be9612ecfff8743262a33a356aa0aaec",
+  "prompts": {
+    "ce801669e04e3df3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0829516d-c1b7-474b-b8b1-299fd1c16ebe",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Yuho <yuhoye@gmail.com>",
+      "messages": [],
+      "total_additions": 27,
+      "total_deletions": 1,
+      "accepted_lines": 27,
+      "overriden_lines": 0
+    }
+  }
+}
