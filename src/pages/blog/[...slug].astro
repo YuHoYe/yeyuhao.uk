@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
+import Giscus from "../../components/Giscus.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -22,4 +23,5 @@ const { Content } = await render(post);
   body={post.body || ""}
 >
   <Content />
+  <Giscus slot="comments" />
 </PostLayout>
