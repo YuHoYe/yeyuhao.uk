@@ -1,0 +1,23 @@
+scripts/upload-r2.sh
+  1aef4d1dc024bf52 1-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "9764cb08c14a26e20a049b46671796e8c7b1f3a4",
+  "prompts": {
+    "1aef4d1dc024bf52": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "318df231-8f46-499a-9dce-fcc077c90c71",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YuHoYe <yeyuhao02@corp.netease.com>",
+      "messages": [],
+      "total_additions": 35,
+      "total_deletions": 0,
+      "accepted_lines": 35,
+      "overriden_lines": 0
+    }
+  }
+}
