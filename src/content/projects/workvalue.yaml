@@ -1,6 +1,6 @@
 name: "WorkValue"
-icon: "💰"
+icon: "/icons/workvalue.png"
 description: "iOS App，GPS 自动记录工时、实时计算时薪"
 tags: ["Swift", "iOS"]
-url: "https://apps.apple.com/cn/app/workvalue/id6753736776"
+url: "https://workvalue.bolt.host/cn"
 year: 2025

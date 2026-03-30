@@ -16,7 +16,11 @@ const { name, icon, description, tags, url } = Astro.props;
   rel="noopener noreferrer"
   class="block border border-[--color-border] rounded-lg p-4 no-underline hover:border-[--color-text-muted] transition-colors"
 >
-  <div class="text-xl mb-2">{icon}</div>
+  {icon.startsWith('/') ? (
+    <img src={icon} alt={name} class="w-8 h-8 mb-2 rounded" />
+  ) : (
+    <div class="text-xl mb-2">{icon}</div>
+  )}
   <h3 class="text-sm font-semibold text-[--color-text] mb-1">{name}</h3>
   <p class="text-xs text-[--color-text-secondary] mb-3 leading-relaxed">{description}</p>
   <div class="flex flex-wrap gap-1.5">
