@@ -1,0 +1,27 @@
+src/styles/global.css
+  1aef4d1dc024bf52 26-127
+src/layouts/PostLayout.astro
+  1aef4d1dc024bf52 1-50
+src/pages/blog/[...slug].astro
+  1aef4d1dc024bf52 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "ef3aa3b88df973105700d580e0040234f850e955",
+  "prompts": {
+    "1aef4d1dc024bf52": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "318df231-8f46-499a-9dce-fcc077c90c71",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "YuHoYe <yeyuhao02@corp.netease.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 177,
+      "overriden_lines": 0
+    }
+  }
+}
