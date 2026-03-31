@@ -12,7 +12,7 @@ lang: "zh"
 
 这个 App 叫 [WorkValue](https://apps.apple.com/cn/app/workvalue/id6753736776)，利用 iOS 系统的地点感知能力自动记录你每天在公司待了多久，录入工资后算出你的真实时薪。不用手动打卡，不常驻后台，不上传服务器，所有数据留在本地。
 
-![WorkValue App 截图](https://img.yeyuhao.uk/combined.webp)
+![WorkValue App 截图](https://img.yeyuhao.uk/blog/2026/03/workvalue-combined.png)
 
 ## 为什么做这个
 
@@ -43,7 +43,7 @@ lang: "zh"
 
 整个项目的 commit 热力图，8-9 月那片亮绿色一目了然：
 
-![WorkValue 开发热力图](https://img.yeyuhao.uk/blog/2026/03/workvalue-heatmap.svg)
+![WorkValue 开发热力图](https://img.yeyuhao.uk/blog/2026/03/workvalue-heatmap.png)
 
 ## 现实的暴击
 
@@ -91,9 +91,9 @@ Vibe Coding 真正省时间的地方，其实是那些重复性的苦力活。16
 
 ## 上架两周的成绩单
 
-既然文章都写了，也晒一下真实数据。上架两周，100 次下载，18 次内购，12 个活跃订阅，App Store 页面转化率 13.9%。苹果后台因为数据量太少，收入那栏显示的是「数据不足」。
+既然文章都写了，也晒一下真实数据。上架两周，100 次下载，18 次内购，12 个活跃订阅，App Store 页面转化率 13.9%。因为订阅有首月免费，所以目前收入基本为零，苹果后台收入栏显示的是「数据不足」。
 
-说白了就是还没赚到什么钱。
+![App Store Connect 后台数据](https://img.yeyuhao.uk/blog/2026/03/workvalue-appstore-analytics.png)
 
 成本这边，Apple 开发者账号 99 美元/年是固定的。AI 工具的费用是 Claude 订阅 100 美元/月加上 Codex 20 美元/月，不过这些也同时用在工作上，不算纯粹为这个项目花的钱。没有服务器费用，没有设计师费用，没有任何额外开支。一个人的项目好处就在这里，成本压得很低，不赚钱也不会亏太多。
 
