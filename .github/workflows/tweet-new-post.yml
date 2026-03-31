@@ -35,25 +35,34 @@ jobs:
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
-          pip install tweepy pyyaml
+          pip install tweepy pyyaml requests
           python3 << 'PYEOF'
-          import os, re, yaml, tweepy
+          import os, re, yaml, tweepy, requests, tempfile
 
           with open('/tmp/new_posts.txt') as f:
               posts = f.read().strip().split('\n')
 
+          consumer_key = os.environ['X_CONSUMER_KEY']
+          consumer_secret = os.environ['X_CONSUMER_SECRET']
+          access_token = os.environ['X_ACCESS_TOKEN']
+          access_token_secret = os.environ['X_ACCESS_TOKEN_SECRET']
+
+          # v1.1 API for media upload
+          auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret, access_token, access_token_secret)
+          api = tweepy.API(auth)
+
+          # v2 API for tweeting
           client = tweepy.Client(
-              consumer_key=os.environ['X_CONSUMER_KEY'],
-              consumer_secret=os.environ['X_CONSUMER_SECRET'],
-              access_token=os.environ['X_ACCESS_TOKEN'],
-              access_token_secret=os.environ['X_ACCESS_TOKEN_SECRET']
+              consumer_key=consumer_key,
+              consumer_secret=consumer_secret,
+              access_token=access_token,
+              access_token_secret=access_token_secret
           )
 
           for post_path in posts:
               with open(post_path) as f:
                   content = f.read()
 
-              # Parse frontmatter
               match = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
               if not match:
                   print(f'Skipping {post_path}: no frontmatter')
@@ -71,13 +80,45 @@ jobs:
 
               tweet = f'{description}\n\n{url}'
 
-              # Trim to 280 chars if needed
               if len(tweet) > 280:
-                  max_desc = 280 - len(url) - 4  # 2 newlines + buffer
+                  max_desc = 280 - len(url) - 4
                   tweet = f'{description[:max_desc]}...\n\n{url}'
 
+              # Find first image in the post body
+              body = content[match.end():]
+              img_match = re.search(r'!\[.*?\]\((https?://[^\)]+)\)', body)
+
+              media_ids = []
+              if img_match:
+                  img_url = img_match.group(1)
+                  print(f'Downloading image: {img_url}')
+                  try:
+                      resp = requests.get(img_url, timeout=30)
+                      if resp.status_code == 200:
+                          # Determine file extension
+                          ext = '.png'
+                          ct = resp.headers.get('content-type', '')
+                          if 'jpeg' in ct or 'jpg' in ct:
+                              ext = '.jpg'
+                          elif 'webp' in ct:
+                              ext = '.webp'
+
+                          with tempfile.NamedTemporaryFile(suffix=ext, delete=False) as tmp:
+                              tmp.write(resp.content)
+                              tmp_path = tmp.name
+
+                          media = api.media_upload(tmp_path)
+                          media_ids = [media.media_id]
+                          print(f'Image uploaded, media_id: {media.media_id}')
+                          os.unlink(tmp_path)
+                  except Exception as e:
+                      print(f'Image upload failed, posting without image: {e}')
+
               print(f'Posting tweet:\n{tweet}\n')
-              response = client.create_tweet(text=tweet)
+              kwargs = {'text': tweet}
+              if media_ids:
+                  kwargs['media_ids'] = media_ids
+              response = client.create_tweet(**kwargs)
               print(f'Tweet posted: {response.data["id"]}')
 
           PYEOF
