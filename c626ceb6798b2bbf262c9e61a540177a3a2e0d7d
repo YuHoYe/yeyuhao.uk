@@ -1,0 +1,23 @@
+.github/workflows/tweet-new-post.yml
+  6a5d4767f040305e 38,40,45-54,56-59,84,87-115,118-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.23",
+  "base_commit_sha": "c626ceb6798b2bbf262c9e61a540177a3a2e0d7d",
+  "prompts": {
+    "6a5d4767f040305e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0170c1f4-b9b7-4adc-8e36-d10871e847a1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Yuho <yuhoye@gmail.com>",
+      "messages": [],
+      "total_additions": 51,
+      "total_deletions": 10,
+      "accepted_lines": 51,
+      "overriden_lines": 0
+    }
+  }
+}
