@@ -26,17 +26,4 @@ const projects = defineCollection({
   }),
 });
 
-const memos = defineCollection({
-  loader: glob({ base: "./src/content/memos", pattern: "**/*.md" }),
-  schema: z.object({
-    date: z.coerce.date(),
-    type: z.string().default("memo"),
-    origin: z.enum(["ai", "self"]).default("self"),
-    confirmed: z.boolean().default(false),
-    tags: z.array(z.string()).default([]),
-    cssclasses: z.array(z.string()).default([]),
-    source: z.any().optional(),
-  }),
-});
-
-export const collections = { blog, projects, memos };
+export const collections = { blog, projects };
