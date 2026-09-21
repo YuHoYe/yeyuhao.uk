@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隐私政策 - vibeUsage</title>
+<meta name="description" content="隐私政策">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="../../assets/icon.png">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<a class="brand" href="../../cn/"><img src="../../assets/icon.png" alt="">vibeUsage</a>
+<a class="lang" href="../../">English</a>
+</header>
+<main class="doc"><h1>隐私政策</h1><p class="date">最后更新： 2026 年 9 月 21 日</p>
+<p>vibeUsage 用来查看你的 AI 编码额度还剩多少。它的设计目标是开发者永远看不到你的数据：没有 vibeUsage 服务器，没有 vibeUsage 账号，没有统计分析，也没有广告。</p>
+<div class="note"><b>一句话：</b>你的登录信息和读数只留在你的设备和你自己的 iCloud 里。App 只和你连接的服务、以及 Apple 通信，除此之外不联系任何人。</div>
+<h2>App 会处理哪些信息</h2>
+<ul><li><b>登录凭据</b>：你连接的服务（如 Claude、Codex、Cursor、Kimi、Grok、DeepSeek，或插件自己的凭据）的 OAuth 令牌或 API Key，保存在设备的系统钥匙串中。</li><li><b>额度读数</b>：这些服务返回的百分比、重置时间、套餐名称和余额。</li><li><b>账号标签</b>：服务返回的账号名称或邮箱，以及你自己填写的备注。</li><li><b>Token 统计（仅 Mac）</b>：Mac 版读取编码 Agent 的本机日志，只读取你授权的目录，并只保留按模型、来源汇总的每日总数。提示词、回复和代码不会被保存、同步或发送到任何地方。</li><li><b>设置</b>：主题、刷新间隔、提醒偏好，以及哪些提醒已经发过。</li></ul>
+<h2>信息去向</h2>
+<ul><li><b>发给你连接的服务。</b>为了读取额度，App 会把该服务对应的凭据从你的设备直接发给该服务，方式与它的官方工具相同。各服务按其自己的隐私政策处理这些请求。</li><li><b>存入你的 iCloud（可选）。</b>开启 iCloud 同步后，账号、凭据、读数、插件脚本、最多 90 天的 Token 汇总和提醒设置会保存在你的 iCloud 私有数据库里，用于多设备保持一致。凭据写入 CloudKit 的加密字段。开发者无法访问你的 iCloud 数据。你可以在设置里关闭同步。</li><li><b>发给 Apple。</b>购买完全由 App Store 处理；App 只知道 Pro 是否已解锁，不会接触你的付款信息。提醒是本地通知；唤醒 iPhone 的静默推送来自你自己的 iCloud 数据库，经 Apple 的推送服务送达。</li><li><b>发给插件对应的服务。</b>你安装的插件可以向它所对接的服务发起网络请求。插件读不到你的主目录，只能拿到你为它导入的凭据。</li></ul>
+<p>不会向开发者发送任何数据，也不会与第三方共享或出售任何数据。</p>
+<h2>通知</h2>
+<p>提醒在你的设备上排期并发出。只有当你以 Pro 身份打开「提醒」页、或打开某个提醒开关时，App 才会申请通知权限。你可以随时在系统设置里撤销。</p>
+<h2>保存与删除</h2>
+<ul><li>移除账号会同时从钥匙串和你的 iCloud 记录里删除它的凭据。</li><li>删除 App 会清除该设备上保存的全部内容。iCloud 中的数据可在「设置 › Apple 账户 › iCloud › 管理储存空间」中删除。</li><li>开发者不持有任何副本，因此没有需要开发者代为删除或导出的内容。</li></ul>
+<h2>儿童隐私</h2>
+<p>vibeUsage 不面向 13 岁以下儿童，也不会有意收集他们的个人信息。</p>
+<h2>政策变更</h2>
+<p>本政策如有变更，新版本会连同新的日期发布在本页，重要变更会写进 App 的更新说明。</p>
+<h2>联系我们</h2>
+<p>关于隐私的任何问题：<a href="mailto:yuhoye@gmail.com">yuhoye@gmail.com</a></p>
+</main>
+<footer>
+<span>© 2026 vibeUsage</span>
+<nav><a href="../../cn/privacy/">隐私政策</a><a href="../../cn/terms/">用户协议</a><a href="../../cn/support/">技术支持</a></nav>
+</footer>
+</div>
+</body>
+</html>
