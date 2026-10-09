@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""vibeUsage's website: a home page, the privacy policy, the terms and support,
+"""vibeUsage's website: a home page, Helper download, privacy, terms and support,
 in English (/) and Chinese (/cn/). Plain static HTML, generated from the text
-below so the two languages and the four pages cannot drift apart in structure.
+below so both languages share the same structure.
 
     python3 vibeusage-site/build.py         # writes public/vibeusage/
 
@@ -20,6 +20,8 @@ import sys
 CONTACT = "yuhoye@gmail.com"
 UPDATED = {"en": "September 21, 2026", "cn": "2026 年 9 月 21 日"}
 APP_STORE = ""  # The App Store link, once the app is live; empty hides the button.
+HELPER_VERSION = "1.0.0"
+HELPER_ARCHIVE = f"vibeUsage-Helper-{HELPER_VERSION}.zip"
 
 CSS = """
 :root{--bg:#0D100F;--card:#171C1A;--card2:#212927;--text:#EEF2EF;--sec:rgba(238,242,239,.66);
@@ -76,6 +78,14 @@ footer nav{display:flex;gap:18px;flex-wrap:wrap}
 .doc p,.doc li{color:var(--sec)}
 .doc ul{padding-left:20px;margin:8px 0}
 .doc li{margin:6px 0}
+.doc ol{padding-left:24px}
+.doc ol li{padding-left:4px;margin:14px 0}
+.helper-promo{margin-top:32px;background:var(--card);border-radius:26px;padding:28px;text-align:center}
+.helper-promo h2{margin:0 0 8px;font-size:24px}
+.helper-promo p{max-width:620px;margin:0 auto;color:var(--sec)}
+.helper-promo .cta{margin-top:18px}
+.helper-meta{font-size:14px;color:var(--ter)!important;margin-top:12px!important}
+.helper-links{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:16px}
 .doc b{color:var(--text);font-weight:600}
 .note{background:var(--accent-soft);border-radius:16px;padding:16px 18px;margin:18px 0;color:var(--text)}
 details{background:var(--card);border-radius:16px;padding:14px 18px;margin:10px 0}
@@ -86,11 +96,13 @@ details p{margin:10px 0 2px}
 """
 
 
-def page(lang, depth, title, description, body):
+def page(lang, depth, title, description, body, section=""):
     """One full document. `depth` is how far below the site root it sits."""
     root = "../" * depth
     home = (root + ("cn/" if lang == "cn" else "")) or "./"
     other = (root + ("" if lang == "cn" else "cn/")) or "./"
+    if section:
+        other = other + section + "/"
     t = TEXT[lang]
     store = f'<a href="{APP_STORE}">App Store</a>' if APP_STORE else ""
     return f"""<!doctype html>
@@ -113,7 +125,7 @@ def page(lang, depth, title, description, body):
 {body}
 <footer>
 <span>© 2026 vibeUsage</span>
-<nav>{store}<a href="{home}privacy/">{t['privacy']}</a><a href="{home}terms/">{t['terms']}</a><a href="{home}support/">{t['support']}</a></nav>
+<nav>{store}<a href="{home}helper/">{t['helper_nav']}</a><a href="{home}privacy/">{t['privacy']}</a><a href="{home}terms/">{t['terms']}</a><a href="{home}support/">{t['support']}</a></nav>
 </footer>
 </div>
 </body>
@@ -174,6 +186,11 @@ TEXT = {
         ],
         "free_title": "Always free",
         "free_text": "Statistics, widgets, the menu bar, iCloud sync, themes, and used / remaining readings.",
+        "helper_nav": "Helper for Mac",
+        "helper_promo_title": "Keep Claude readings up to date",
+        "helper_promo_text": "Add the optional vibeUsage Helper to refresh the Claude account already signed in "
+                             "on your Mac. Install once, then return to vibeUsage to enable it.",
+        "helper_promo_action": "Get the Helper",
     },
     "cn": {
         "other_language": "English", "privacy": "隐私政策", "terms": "用户协议", "support": "技术支持",
@@ -202,6 +219,10 @@ TEXT = {
         ],
         "free_title": "始终免费",
         "free_text": "统计、小组件、菜单栏、iCloud 同步、主题，以及已用 / 剩余两种读数。",
+        "helper_nav": "Mac 助手",
+        "helper_promo_title": "让 Claude 的额度读数保持更新",
+        "helper_promo_text": "可选安装 vibeUsage 助手，刷新这台 Mac 上已登录的 Claude 账号。安装一次，返回 App 确认启用。",
+        "helper_promo_action": "获取助手",
     },
 }
 
@@ -235,6 +256,11 @@ def home(lang):
 <ul>{points}</ul>
 </div>
 <div class="free"><b>{t['free_title']}</b>{t['free_text']}</div>
+</section>
+<section class="helper-promo">
+<h2>{t['helper_promo_title']}</h2>
+<p>{t['helper_promo_text']}</p>
+<a class="cta" href="helper/">{t['helper_promo_action']}</a>
 </section>
 </main>"""
     return page(lang, depth, t["home_title"], t["home_description"], body)
@@ -432,6 +458,98 @@ SUPPORT = {
 }
 
 
+HELPER = {
+    "en": {
+        "title": "vibeUsage Helper for Mac",
+        "description": "Refresh your local Claude quota with the optional vibeUsage Helper for Mac.",
+        "lead": "Keep the quota for your local Claude account up to date. Install the Helper once, "
+                "then return to vibeUsage to enable refreshing.",
+        "download": "Download for Mac",
+        "pending": "Download is being prepared",
+        "ready_note": "Version {version} · macOS 13 or later · Apple silicon and Intel",
+        "pending_note": "The download will appear here when the release is ready.",
+        "before_title": "Before you begin",
+        "before_text": "Install a version of vibeUsage with Active Refresh settings on this Mac. Claude Code must also be installed and signed in "
+                       "with the Claude subscription you want to monitor.",
+        "claude_link": "Claude Code installation guide",
+        "steps_title": "Install in three steps",
+        "steps": [
+            ("Download and open", "Open the ZIP file, then double-click the vibeUsage Helper inside."),
+            ("Follow the installation steps", "The Helper guides you through installation on this Mac."),
+            ("Return to vibeUsage", "Confirm enabling active refresh in the app. If macOS asks for folder "
+             "access, choose the Helper folder shown in the prompt. A successful first reading confirms setup."),
+        ],
+        "after_text": "Once setup is complete, you can delete the downloaded installation copy. "
+                      "vibeUsage's manual and automatic refresh will use the installed Helper.",
+        "privacy_title": "Your existing sign-in stays with Claude",
+        "privacy_text": "You do not need to copy a password, token or API key into the Helper. It uses "
+                        "Claude Code's existing sign-in to refresh your quota and does not submit a chat prompt.",
+        "remove_title": "Turn off or remove the Helper",
+        "remove_text": "To return to cached readings, turn off active refresh in the Claude account's "
+                       "settings in vibeUsage. To remove the Helper from this Mac, reopen the installer "
+                       "and choose Uninstall. Your Claude Code sign-in and configuration stay in place.",
+        "help": "Need help?",
+        "home": "About vibeUsage",
+    },
+    "cn": {
+        "title": "vibeUsage Mac 助手",
+        "description": "安装可选的 vibeUsage Mac 助手，主动刷新本机 Claude 额度。",
+        "lead": "让本机 Claude 账号的额度读数保持更新。安装助手一次，再返回 vibeUsage 确认启用。",
+        "download": "下载 Mac 助手",
+        "pending": "下载包准备中",
+        "ready_note": "版本 {version} · macOS 13 或更新版本 · Apple 芯片与 Intel",
+        "pending_note": "发布包准备完成后，下载入口会显示在这里。",
+        "before_title": "安装前",
+        "before_text": "请先在这台 Mac 安装带有“主动刷新设置”入口的 vibeUsage 版本，并安装官方 Claude Code，登录你想查看额度的 Claude 订阅账号。",
+        "claude_link": "Claude Code 安装说明",
+        "steps_title": "三步完成安装",
+        "steps": [
+            ("下载并打开", "打开 ZIP 文件，再双击里面的 vibeUsage 助手。"),
+            ("按屏幕指引安装", "助手会引导你完成这台 Mac 上的安装。"),
+            ("返回 vibeUsage", "在 App 中确认启用主动刷新。如果 macOS 要求文件夹访问权限，选择提示中的助手文件夹。首次额度读取成功后，设置就完成了。"),
+        ],
+        "after_text": "设置完成后，可以删除下载的安装副本。vibeUsage 的手动和自动刷新会使用已安装的助手。",
+        "privacy_title": "沿用 Claude 的现有登录",
+        "privacy_text": "不需要向助手复制密码、令牌或 API Key。助手沿用官方 Claude Code 的登录来刷新额度，不会发起对话。",
+        "remove_title": "停用或卸载助手",
+        "remove_text": "在 vibeUsage 的 Claude 账号设置中停用主动刷新，即可恢复读取缓存。要从这台 Mac 移除助手，重新打开安装器并选择卸载。你的 Claude Code 登录和配置会保留。",
+        "help": "需要帮助？",
+        "home": "了解 vibeUsage",
+    },
+}
+
+
+def helper(lang, available):
+    t = HELPER[lang]
+    depth = 1 if lang == "en" else 2
+    root = "../" * depth
+    if available:
+        action = f'<a class="cta" href="{root}downloads/{HELPER_ARCHIVE}" download>{t["download"]}</a>'
+        note = t["ready_note"].format(version=HELPER_VERSION)
+    else:
+        action = f'<span class="soon" role="status">{t["pending"]}</span>'
+        note = t["pending_note"]
+    steps = "".join(f"<li><b>{title}</b><br>{text}</li>" for title, text in t["steps"])
+    body = f"""<main class="doc">
+<h1>{t['title']}</h1>
+<p>{t['lead']}</p>
+{action}
+<p class="helper-meta">{note}</p>
+<h2>{t['before_title']}</h2>
+<p>{t['before_text']}</p>
+<p><a href="https://code.claude.com/docs/en/setup">{t['claude_link']}</a></p>
+<h2>{t['steps_title']}</h2>
+<ol>{steps}</ol>
+<p>{t['after_text']}</p>
+<h2>{t['privacy_title']}</h2>
+<p>{t['privacy_text']}</p>
+<h2>{t['remove_title']}</h2>
+<p>{t['remove_text']}</p>
+<nav class="helper-links"><a href="../support/">{t['help']}</a><a href="../">{t['home']}</a></nav>
+</main>"""
+    return page(lang, depth, t["title"], t["description"], body, section="helper")
+
+
 def support(lang):
     title, lead, faq, reach, hint = SUPPORT[lang]
     items = "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in faq)
@@ -444,9 +562,19 @@ def support(lang):
 
 def build(out):
     if out.exists():
-        shutil.rmtree(out)
+        # Release archives are copied here after signing and notarization.
+        # Rebuilding the static pages must not remove a published download.
+        for child in out.iterdir():
+            if child.name == "downloads":
+                continue
+            if child.is_dir():
+                shutil.rmtree(child)
+            else:
+                child.unlink()
     shutil.copytree(pathlib.Path(__file__).parent / "assets", out / "assets")
     (out / "assets" / "site.css").write_text(CSS.strip() + "\n", encoding="utf-8")
+    archive = out / "downloads" / HELPER_ARCHIVE
+    helper_available = archive.is_file() and archive.stat().st_size > 0
     for lang in ("en", "cn"):
         base = out / "cn" if lang == "cn" else out
         depth = 2 if lang == "cn" else 1
@@ -459,6 +587,8 @@ def build(out):
                 page(lang, depth, f"{title} - vibeUsage", title, doc(lang, title, sections)), encoding="utf-8")
         (base / "support").mkdir(exist_ok=True)
         (base / "support" / "index.html").write_text(support(lang), encoding="utf-8")
+        (base / "helper").mkdir(exist_ok=True)
+        (base / "helper" / "index.html").write_text(helper(lang, helper_available), encoding="utf-8")
     if CONTACT.startswith("TODO"):
         print("WARN the contact address is still a placeholder; set CONTACT before publishing")
     print(f"built {sum(1 for _ in out.rglob('index.html'))} pages into {out}")
