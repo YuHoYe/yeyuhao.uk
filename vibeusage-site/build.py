@@ -20,7 +20,7 @@ import sys
 CONTACT = "yuhoye@gmail.com"
 UPDATED = {"en": "September 21, 2026", "cn": "2026 年 9 月 21 日"}
 APP_STORE = ""  # The App Store link, once the app is live; empty hides the button.
-HELPER_VERSION = "1.0.0"
+HELPER_VERSION = "1.0.1"
 HELPER_ARCHIVE = f"vibeUsage-Helper-{HELPER_VERSION}.zip"
 
 CSS = """
@@ -188,8 +188,8 @@ TEXT = {
         "free_text": "Statistics, widgets, the menu bar, iCloud sync, themes, and used / remaining readings.",
         "helper_nav": "Helper for Mac",
         "helper_promo_title": "Keep Claude readings up to date",
-        "helper_promo_text": "Add the optional vibeUsage Helper to refresh the Claude account already signed in "
-                             "on your Mac. Install once, then return to vibeUsage to enable it.",
+        "helper_promo_text": "Enable Active Refresh in vibeUsage, then open the downloaded Helper once. "
+                             "It installs automatically and returns to the app.",
         "helper_promo_action": "Get the Helper",
     },
     "cn": {
@@ -221,7 +221,7 @@ TEXT = {
         "free_text": "统计、小组件、菜单栏、iCloud 同步、主题，以及已用 / 剩余两种读数。",
         "helper_nav": "Mac 助手",
         "helper_promo_title": "让 Claude 的额度读数保持更新",
-        "helper_promo_text": "可选安装 vibeUsage 助手，刷新这台 Mac 上已登录的 Claude 账号。安装一次，返回 App 确认启用。",
+        "helper_promo_text": "在 vibeUsage 中启用主动刷新，打开下载的助手一次，即可自动安装并返回 App。",
         "helper_promo_action": "获取助手",
     },
 }
@@ -462,8 +462,8 @@ HELPER = {
     "en": {
         "title": "vibeUsage Helper for Mac",
         "description": "Refresh your local Claude quota with the optional vibeUsage Helper for Mac.",
-        "lead": "Keep the quota for your local Claude account up to date. Install the Helper once, "
-                "then return to vibeUsage to enable refreshing.",
+        "lead": "In vibeUsage, choose Enable Active Refresh to download the Helper directly. Open it once "
+                "to finish setup. You can also download it here.",
         "download": "Download for Mac",
         "pending": "Download is being prepared",
         "ready_note": "Version {version} · macOS 13 or later · Apple silicon and Intel",
@@ -472,12 +472,15 @@ HELPER = {
         "before_text": "Install a version of vibeUsage with Active Refresh settings on this Mac. Claude Code must also be installed and signed in "
                        "with the Claude subscription you want to monitor.",
         "claude_link": "Claude Code installation guide",
-        "steps_title": "Install in three steps",
+        "steps_title": "Start in vibeUsage",
         "steps": [
-            ("Download and open", "Open the ZIP file, then double-click the vibeUsage Helper inside."),
-            ("Follow the installation steps", "The Helper guides you through installation on this Mac."),
-            ("Return to vibeUsage", "Confirm enabling active refresh in the app. If macOS asks for folder "
-             "access, choose the Helper folder shown in the prompt. A successful first reading confirms setup."),
+            ("Download from the app", "In your local Claude account's Active Refresh settings, choose Enable Active Refresh. "
+             "Your browser downloads the ZIP directly. If you downloaded from this page, continue with the next step."),
+            ("Open the Helper once", "Open the ZIP, then double-click the vibeUsage Helper inside. Confirm opening "
+             "if macOS asks. The Helper installs automatically and returns to vibeUsage. If Claude Code cannot be "
+             "found or is not signed in, the Helper shows settings to resolve it."),
+            ("Get your first reading", "Setup started from vibeUsage connects automatically. If you started from this page, "
+             "confirm enabling active refresh in the app. A successful first reading confirms setup."),
         ],
         "after_text": "Once setup is complete, you can delete the downloaded installation copy. "
                       "vibeUsage's manual and automatic refresh will use the installed Helper.",
@@ -486,15 +489,15 @@ HELPER = {
                         "Claude Code's existing sign-in to refresh your quota and does not submit a chat prompt.",
         "remove_title": "Turn off or remove the Helper",
         "remove_text": "To return to cached readings, turn off active refresh in the Claude account's "
-                       "settings in vibeUsage. To remove the Helper from this Mac, reopen the installer "
-                       "and choose Uninstall. Your Claude Code sign-in and configuration stay in place.",
+                       "settings in vibeUsage. To remove the Helper from this Mac, open the downloaded Helper, "
+                       "switch back to its window and choose Uninstall helper. Your Claude Code sign-in and configuration stay in place.",
         "help": "Need help?",
         "home": "About vibeUsage",
     },
     "cn": {
         "title": "vibeUsage Mac 助手",
         "description": "安装可选的 vibeUsage Mac 助手，主动刷新本机 Claude 额度。",
-        "lead": "让本机 Claude 账号的额度读数保持更新。安装助手一次，再返回 vibeUsage 确认启用。",
+        "lead": "在 vibeUsage 中点「启用主动刷新」即可直接下载助手，打开一次就能完成设置。这里也提供备用下载。",
         "download": "下载 Mac 助手",
         "pending": "下载包准备中",
         "ready_note": "版本 {version} · macOS 13 或更新版本 · Apple 芯片与 Intel",
@@ -502,17 +505,17 @@ HELPER = {
         "before_title": "安装前",
         "before_text": "请先在这台 Mac 安装带有“主动刷新设置”入口的 vibeUsage 版本，并安装官方 Claude Code，登录你想查看额度的 Claude 订阅账号。",
         "claude_link": "Claude Code 安装说明",
-        "steps_title": "三步完成安装",
+        "steps_title": "从 vibeUsage 开始",
         "steps": [
-            ("下载并打开", "打开 ZIP 文件，再双击里面的 vibeUsage 助手。"),
-            ("按屏幕指引安装", "助手会引导你完成这台 Mac 上的安装。"),
-            ("返回 vibeUsage", "在 App 中确认启用主动刷新。如果 macOS 要求文件夹访问权限，选择提示中的助手文件夹。首次额度读取成功后，设置就完成了。"),
+            ("在 App 中下载", "在本机 Claude 账号的主动刷新设置中点「启用主动刷新」，浏览器会直接下载 ZIP。若已从本页下载，继续下一步即可。"),
+            ("打开助手一次", "打开 ZIP 文件，再双击里面的 vibeUsage 助手。如果 macOS 提示是否打开，请确认。助手会自动安装并返回 vibeUsage；找不到 Claude Code 或尚未登录时，才会显示设置供你处理。"),
+            ("取得首次读数", "从 vibeUsage 发起的安装会自动连接。从本页直接下载的用户，需要在 App 中确认启用主动刷新。首次额度读取成功后，设置就完成了。"),
         ],
         "after_text": "设置完成后，可以删除下载的安装副本。vibeUsage 的手动和自动刷新会使用已安装的助手。",
         "privacy_title": "沿用 Claude 的现有登录",
         "privacy_text": "不需要向助手复制密码、令牌或 API Key。助手沿用官方 Claude Code 的登录来刷新额度，不会发起对话。",
         "remove_title": "停用或卸载助手",
-        "remove_text": "在 vibeUsage 的 Claude 账号设置中停用主动刷新，即可恢复读取缓存。要从这台 Mac 移除助手，重新打开安装器并选择卸载。你的 Claude Code 登录和配置会保留。",
+        "remove_text": "在 vibeUsage 的 Claude 账号设置中停用主动刷新，即可恢复读取缓存。要从这台 Mac 移除助手，打开下载的助手，切回助手窗口并选择「卸载助手」。你的 Claude Code 登录和配置会保留。",
         "help": "需要帮助？",
         "home": "了解 vibeUsage",
     },
