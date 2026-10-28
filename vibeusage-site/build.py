@@ -18,7 +18,7 @@ import sys
 
 # The address printed on every page. It must be a mailbox that is read.
 CONTACT = "yuhoye@gmail.com"
-UPDATED = {"en": "October 27, 2026", "cn": "2026 年 10 月 27 日"}
+UPDATED = {"en": "October 28, 2026", "cn": "2026 年 10 月 28 日"}
 APP_STORE = ""  # The App Store link, once the app is live; empty hides the button.
 HELPER_VERSION = "1.0.1"
 HELPER_ARCHIVE = f"vibeUsage-Helper-{HELPER_VERSION}.zip"
@@ -170,8 +170,8 @@ TEXT = {
             ("One refill timeline", "All accounts on a single seven-day axis, in the order their windows come back."),
             ("Menu bar, widgets, lock screen", "The tightest account sits in the Mac menu bar; iPhone and iPad get "
                                                "home screen and lock screen widgets."),
-            ("Token statistics", "The Mac reads the local logs of your coding agents and totals tokens by day, "
-                                 "model and source. Conversations are never read out of your Mac."),
+            ("Token statistics", "Reads the token usage vibe-usage uploads to vibecafe.ai, by day, agent and "
+                                 "model. Sign in to vibecafe once and your other devices connect through iCloud."),
             ("Your own iCloud", "Accounts and readings sync through your private iCloud database. "
                                 "There is no vibeUsage server and no vibeUsage account."),
             ("Plugins", "A service that is not built in can be added as a small script, written by the AI you "
@@ -206,7 +206,7 @@ TEXT = {
             ("节奏条", "每个窗口都把「已用」和「时间过了多少」画在同一条上。用得比时间快就变琥珀色，并告诉你按这个速度什么时候用完。"),
             ("一条回血时间轴", "所有账号排进同一条七天时间轴，按窗口恢复的先后。"),
             ("菜单栏、小组件、锁屏", "最紧张的账号常驻 Mac 菜单栏；iPhone 和 iPad 有主屏幕与锁屏小组件。"),
-            ("Token 统计", "Mac 读取本机编码 Agent 的日志，按天、模型、来源汇总 Token。对话内容不会离开你的 Mac。"),
+            ("Token 统计", "从 vibecafe.ai 读取 vibe-usage 上传的 Token 用量，按天、Agent、模型汇总。登录一次 vibecafe，其他设备通过 iCloud 自动连上。"),
             ("你自己的 iCloud", "账号和读数通过你的 iCloud 私有数据库同步。没有 vibeUsage 服务器，也没有 vibeUsage 账号。"),
             ("插件", "没有内置的服务可以用一段小脚本接入，由你已经在用的 AI 按 App 提供的提示词写出来。"),
         ],
@@ -278,9 +278,9 @@ PRIVACY = {
             "Keychain on your device.",
             "<b>Quota readings</b> - the percentages, reset times, plan names and balances those services return.",
             "<b>Account labels</b> - the name or e-mail a service reports for the account, and any note you type.",
-            "<b>Token statistics (Mac only)</b> - the Mac app reads the local log files of coding agents, only in "
-            "folders you authorise, and keeps daily totals by model and source. Prompts, replies and code are not "
-            "stored, synced or sent anywhere.",
+            "<b>Token statistics</b> - the vibecafe.ai API key you get by signing in to vibecafe, kept in the "
+            "system Keychain, and the daily token totals by agent and model the app reads with it, cached on your "
+            "device. The app reads no local logs, prompts, replies or code.",
             "<b>Coffee records</b> - transaction IDs and purchase dates, stored locally and synced through your private "
             "iCloud database when sync is available and enabled. The count is a thank-you, not a feature entitlement.",
             "<b>Settings</b> - theme, refresh interval, alert preferences, and which alerts have already been sent.",
@@ -290,9 +290,12 @@ PRIVACY = {
             "directly from your device, the same way the service's own tools do. Each service handles that request "
             "under its own privacy policy.",
             "<b>To your iCloud (optional).</b> With iCloud sync on, accounts, credentials, readings, plugin scripts, "
-            "up to 90 days of token totals and alert settings are stored in your private iCloud database so your "
+            "your vibecafe API key and alert settings are stored in your private iCloud database so your "
             "devices stay in step. Credentials are written to CloudKit encrypted fields. The developer has no "
             "access to your iCloud data. You can turn sync off in Settings.",
+            "<b>To vibecafe.ai.</b> Once you sign in to vibecafe, the app uses your API key to read your token usage "
+            "from vibecafe.ai - data you uploaded yourself with vibe-usage. vibecafe.ai handles those requests under "
+            "its own privacy policy. Signing out of vibecafe removes the key from every device and the cached statistics.",
             "<b>To Apple.</b> Coffee purchases are handled by the App Store. The app receives transaction IDs and "
             "purchase dates to count your coffees, never your payment details. Alerts are local notifications; the silent push that wakes the "
             "iPhone comes from your own iCloud database through Apple's push service.",
@@ -323,15 +326,17 @@ PRIVACY = {
             "<b>登录凭据</b>：你连接的服务（如 Claude、Codex、Cursor、Kimi、Grok、DeepSeek，或插件自己的凭据）的 OAuth 令牌或 API Key，保存在设备的系统钥匙串中。",
             "<b>额度读数</b>：这些服务返回的百分比、重置时间、套餐名称和余额。",
             "<b>账号标签</b>：服务返回的账号名称或邮箱，以及你自己填写的备注。",
-            "<b>Token 统计（仅 Mac）</b>：Mac 版读取编码 Agent 的本机日志，只读取你授权的目录，并只保留按模型、来源汇总的每日总数。"
-            "提示词、回复和代码不会被保存、同步或发送到任何地方。",
+            "<b>Token 统计</b>：登录 vibecafe 后得到的 vibecafe.ai API Key 保存在系统钥匙串；App 用它读取按 Agent 和模型汇总的每日 Token 用量，缓存在本机。"
+            "App 不读取任何本机日志、提示词、回复或代码。",
             "<b>咖啡记录</b>：交易 ID 和购买时间保存在本机，并在 iCloud 同步可用且开启时同步到你的私有数据库。杯数只是感谢记录，不代表任何功能权限。",
             "<b>设置</b>：主题、刷新间隔、提醒偏好，以及哪些提醒已经发过。",
         ]]),
         ("信息去向", [[
             "<b>发给你连接的服务。</b>为了读取额度，App 会把该服务对应的凭据从你的设备直接发给该服务，方式与它的官方工具相同。各服务按其自己的隐私政策处理这些请求。",
-            "<b>存入你的 iCloud（可选）。</b>开启 iCloud 同步后，账号、凭据、读数、插件脚本、最多 90 天的 Token 汇总和提醒设置会保存在你的 iCloud 私有数据库里，"
+            "<b>存入你的 iCloud（可选）。</b>开启 iCloud 同步后，账号、凭据、读数、插件脚本、vibecafe 的 API Key 和提醒设置会保存在你的 iCloud 私有数据库里，"
             "用于多设备保持一致。凭据写入 CloudKit 的加密字段。开发者无法访问你的 iCloud 数据。你可以在设置里关闭同步。",
+            "<b>发给 vibecafe.ai。</b>登录 vibecafe 后，App 用你的 API Key 从 vibecafe.ai 读取 Token 用量，这些数据是你自己用 vibe-usage 上传的。"
+            "vibecafe.ai 按其自己的隐私政策处理这些请求。退出 vibecafe 会删除所有设备上的 Key 和本机缓存的统计。",
             "<b>发给 Apple。</b>购买完全由 App Store 处理；App 接收交易 ID 和购买时间，用于记录咖啡杯数，不会接触你的付款信息。提醒是本地通知；"
             "唤醒 iPhone 的静默推送来自你自己的 iCloud 数据库，经 Apple 的推送服务送达。",
             "<b>发给插件对应的服务。</b>你安装的插件可以向它所对接的服务发起网络请求。插件读不到你的主目录，只能拿到你为它导入的凭据。",
